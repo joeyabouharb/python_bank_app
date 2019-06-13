@@ -1,2 +1,2 @@
-./__pycache__/
-./bankingAccount.json
+__pycache__/
+bankingAccount.json
