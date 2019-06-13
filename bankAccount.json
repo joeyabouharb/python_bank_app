@@ -1,0 +1,12 @@
+{
+  "bank_account": {
+    "balance": 1800.0,
+    "history": [
+      "Viewed Balance: $0",
+      "Deposited $2000.0, Closing Balance $2000.0 ",
+      "Withdrew $200.0, Closing Balance $1800.0"
+    ],
+    "username": "joseph",
+    "password": "$2b$12$CGXraYN6wdUJ3CN7V6iHzOttYTsgUm5a3s2T2ReVcqrO4u4K9e7CO"
+  }
+}
