@@ -5,6 +5,11 @@ def get_user_account(username, password):
   from pathlib import Path
   bank = Path("bankAccount.json")
   if bank.is_file() == False:
+    print('no user  found...')
+    if(len(password.decode('utf-8')) < 8):
+      print('create a password that is larger than 8 characters')
+      exit()
+    print('creating new account... ')
     hashed = bcrypt.hashpw(password, bcrypt.gensalt())
     data = {
     "bank_account": {
@@ -16,6 +21,7 @@ def get_user_account(username, password):
     }
     with open('bankAccount.json', 'w+', encoding='utf-8') as json_file:
       json.dump(data, json_file, ensure_ascii=False, indent=2)
+      print('created! ')
 
   with open('bankAccount.json') as json_file:
     data = json.load(json_file)
@@ -30,6 +36,8 @@ def get_user_account(username, password):
     or username != data['bank_account']['username']):
       print('incorrect details!')
       exit()
+    name = data['bank_account']['username']
+    print(f'Welcome {name}')
     return data['bank_account']
 
 def save_user_account(user_account):

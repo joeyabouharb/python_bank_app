@@ -1,19 +1,12 @@
 {
   "bank_account": {
-    "balance": 1400.0,
+    "balance": 1900.0,
     "history": [
       "Viewed Balance: $0",
       "Deposited $2000.0, Closing Balance $2000.0 ",
-      "Withdrew $200.0, Closing Balance $1800.0",
-      "Viewed Balance: $1800.0",
-      "Withdrew $200.0, Closing Balance $1600.0",
-      "Viewed Balance: $1600.0",
-      "Withdrew $200.0, Closing Balance $1400.0",
-      "Withdrew $0, Closing Balance $1400.0",
-      "Withdrew $0.0, Closing Balance $1400.0",
-      "Withdrew $0.0, Closing Balance $1400.0"
+      "Withdrew $100.0, Closing Balance $1900.0"
     ],
-    "username": "joseph",
-    "password": "$2b$12$CGXraYN6wdUJ3CN7V6iHzOttYTsgUm5a3s2T2ReVcqrO4u4K9e7CO"
+    "username": "joe",
+    "password": "$2b$12$meWn.xRaCsmWPkVbnqe5OucBKc.9WR5xUmhOZ6gE8KiTAtfM47WO2"
   }
 }
