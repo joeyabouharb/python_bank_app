@@ -5,15 +5,19 @@ def App():
   import getpass
   username = input('username: ')
   password = getpass.getpass().encode('utf-8')
-  user_account = serializer.get_user_account(username, password)  
-  bank_account = account_class.BankAccount(
-    user_account['balance'],
-    user_account['history'],
-    True,
-    user_account['username'],
-    user_account['password']
+  user_account = serializer.get_user_account(username, password)
+  bank_account = ''
+  try:
+    bank_account = account_class.BankAccount(
+      user_account['balance'],
+      user_account['history'],
+      True,
+      user_account['username'],
+      user_account['password']
     )
-
+  except KeyError:
+    raise ValueError('Corrupt Account- Please contact administrator. ')
+    exit()
   while(bank_account.loggedIn == True):
     option = input("what would you like to do? ")
     option = option.lower()

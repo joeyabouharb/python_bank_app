@@ -20,7 +20,7 @@ class BankAccount:
 
   def addDeposit(self):
     deposit = validate_input(input("How much would you like to deposit? "))
-    if(deposit < 0):
+    if(deposit < 0 or deposit == 0):
       transaction = 'cannot deposit this amount!'
     else:
       self.balance += deposit
@@ -30,8 +30,8 @@ class BankAccount:
 
   def withdrawBalance(self):
     withdraw = validate_input(input("How much would you like to withdraw? "))
-    if withdraw < 0:
-      transaction = 'stop that!'
+    if withdraw < 0 or withdraw == 0:
+      transaction = 'Please input valid currency value! '
     elif(self.balance - withdraw < 0 ):
       transaction = f'exceeded balance limit! Current Balance ${self.balance}'
     else:

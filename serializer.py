@@ -22,6 +22,9 @@ def get_user_account(username, password):
     if 'bank_account' not in data:
       raise ValueError("bank account was not found, error occured.")
       exit()
+    if 'password' not in data['bank_account'] or 'username' not in data['bank_account']:
+      raise ValueError("Corrupt file. Contact admin. ")
+      exit()
     hashed_pw = data['bank_account']['password']
     if (bcrypt.checkpw(password, hashed_pw.encode('utf-8')) == False
     or username != data['bank_account']['username']):
