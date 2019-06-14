@@ -15,22 +15,22 @@ class BankAccount:
 
   def logOut(self):
     self.loggedIn = False
-    return 'Logging Out. Thanks for using our app!'
+    return '\nLogging Out. Thanks for using our app!'
 
   def addDeposit(self):
     deposit = validate_input(input("How much would you like to deposit? "))
     if(deposit < 0 or deposit == 0):
-      transaction = 'cannot deposit this amount!'
+      transaction = 'cannot deposit this amount!\n'
     else:
       self.balance += deposit
-      transaction = f'Deposited ${deposit}, Closing Balance ${self.balance} '
+      transaction = f'Deposited ${deposit}, Closing Balance ${self.balance}'
       self.history.append(f'{transaction}')
     return transaction
 
   def withdrawBalance(self):
     withdraw = validate_input(input("How much would you like to withdraw? "))
     if withdraw < 0 or withdraw == 0:
-      transaction = 'Please input valid currency value! '
+      transaction = 'Please input valid currency value!'
     elif(self.balance - withdraw < 0 ):
       transaction = f'exceeded balance limit! Current Balance ${self.balance}'
     else:

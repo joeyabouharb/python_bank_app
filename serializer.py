@@ -54,7 +54,7 @@ def get_user_account(username, password):
     if (bcrypt.checkpw(password, hashed_pw) == True
     and username == account['username']):
       name = account['username']
-      print(f'Welcome {name}')
+      print(f'Welcome {name}\n')
       return account
   print('incorrect details!')
   exit()
