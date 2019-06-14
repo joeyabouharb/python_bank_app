@@ -1,54 +1,79 @@
 import json
+import bcrypt
+from pathlib import Path
 
-def get_user_account(username, password):
-  import bcrypt
-  from pathlib import Path
-  bank = Path("bankaccount.json")
-  if bank.is_file() == False:
-    print('no user  found...')
-    if(len(password.decode('utf-8')) < 8):
-      print('create a password that is larger than 8 characters')
-      exit()
-    print('creating new account... ')
-    hashed = bcrypt.hashpw(password, bcrypt.gensalt())
+def output_to_file(accounts):
+  with open('bankaccount.json', 'w+') as json_file:
     data = {
-    "bank_account": {
+      "bank_accounts": accounts
+    }
+    json.dump(data, json_file, ensure_ascii=False, indent=2)
+
+
+def get_all_accounts():
+  accounts = []
+  with open('bankaccount.json', 'r') as json_file:
+    data = json.load(json_file)
+    accounts = data['bank_accounts']
+  return accounts
+
+def create_new_account(username, password):
+  if(len(password.decode('utf-8')) < 8):
+    print('create a password that is larger than 8 characters')
+    exit()
+  hashed = bcrypt.hashpw(password, bcrypt.gensalt())
+  acc = {
       "balance": 0,
       "history": [],
       "username": username,
       "password": hashed.decode('utf-8')
       }
-    }
-    with open('bankaccount.json', 'w+', encoding='utf-8') as json_file:
-      json.dump(data, json_file, ensure_ascii=False, indent=2)
-      print('created! ')
+  print('creating new account... ')
+  bank = Path("bankaccount.json")
+  if bank.is_file() == False:
+    accounts = []
+  elif bank.is_file() == True:
+    accounts = get_all_accounts()
+  for account in accounts:
+    if(account['username'] == username):
+      print('user already exists! ')
+      exit()
+  accounts.append(acc)
+  output_to_file(accounts)
+  return acc
 
-  with open('bankaccount.json') as json_file:
-    data = json.load(json_file)
-    if 'bank_account' not in data:
-      raise ValueError("bank account was not found, error occured.")
-      exit()
-    if 'password' not in data['bank_account'] or 'username' not in data['bank_account']:
-      raise ValueError("Corrupt file. Contact admin. ")
-      exit()
-    hashed_pw = data['bank_account']['password']
-    if (bcrypt.checkpw(password, hashed_pw.encode('utf-8')) == False
-    or username != data['bank_account']['username']):
-      print('incorrect details!')
-      exit()
-    name = data['bank_account']['username']
-    print(f'Welcome {name}')
-    return data['bank_account']
+
+def get_user_account(username, password):
+  bank = Path("bankaccount.json")
+  if bank.is_file() == False:
+    print('Please Create an account! ')
+    exit()
+  accounts = get_all_accounts()
+  for account in accounts:
+    hashed_pw = account['password'].encode('utf-8')
+    if (bcrypt.checkpw(password, hashed_pw) == True
+    and username == account['username']):
+      name = account['username']
+      print(f'Welcome {name}')
+      return account
+  print('incorrect details!')
+  exit()
 
 def save_user_account(user_account):
-  data = {
-    "bank_account": {
-      "balance": user_account.balance,
-      "history": user_account.history,
-      "username": user_account.username,
-      "password": user_account.password,
-    }
-  }
-  with open('bankaccount.json', 'w', encoding='utf-8') as json_file:
-    json.dump(data, json_file, ensure_ascii=False, indent=2)
-    return True
+  password = ''
+  accounts = []
+  with open('bankaccount.json', 'r', ) as json_file:
+    data = json.load(json_file)
+    accounts = data['bank_accounts']
+    for account in accounts: 
+      if(user_account.username == account['username']):
+        accounts.remove(account)
+        acc = {
+        "balance": user_account.balance,
+        "history": user_account.history,
+        "username": user_account.username,
+        "password": account['password']
+        }
+        accounts.append(acc)
+  output_to_file(accounts)
+  return True

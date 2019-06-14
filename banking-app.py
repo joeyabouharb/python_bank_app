@@ -2,9 +2,12 @@ import serializer
 import account_class
 
 def App():
+  input_ = input('Create New Account ? (y/n) ')
   import getpass
   username = input('username: ')
   password = getpass.getpass().encode('utf-8')
+  if(input_ == 'y'):
+    serializer.create_new_account(username, password)
   user_account = serializer.get_user_account(username, password)
   bank_account = ''
   try:
@@ -12,8 +15,7 @@ def App():
       user_account['balance'],
       user_account['history'],
       True,
-      user_account['username'],
-      user_account['password']
+      user_account['username']
     )
   except KeyError:
     raise ValueError('Corrupt Account- Please contact administrator. ')

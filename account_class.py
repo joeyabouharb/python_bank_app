@@ -7,12 +7,11 @@ def validate_input(input):
   return val
 
 class BankAccount:
-  def __init__(self, balance, history, loggedIn, username, password):
+  def __init__(self, balance, history, loggedIn, username):
     self.balance = balance
     self.history = history
     self.loggedIn = loggedIn
     self.username = username
-    self.password = password
 
   def logOut(self):
     self.loggedIn = False
