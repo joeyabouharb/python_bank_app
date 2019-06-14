@@ -18,9 +18,9 @@ def App():
   input_ = input('Create New Account ? (y/n) ')
   import getpass
   username = input('username: ')
-  password = getpass.getpass().encode('utf-8')
+  password = getpass.getpass()
   if(input_ == 'y'):
-    serializer.create_new_account(username, password)
+    password = serializer.create_new_account(username, password)
   user_account = serializer.get_user_account(username, password)
   bank_account = ''
   try:
